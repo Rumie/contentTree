@@ -1,28 +1,46 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <el-input placeholder="Filter keyword" v-model="filterText" style="margin-bottom: 20px;"></el-input>
+    <el-tree
+      default-expand-all
+      accordion
+      highlight-current
+      :show-checkbox="false"
+      ref="tree"
+      :data="categories"
+      :filter-node-method="filterNode"
+      empty-text="No data to show"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import categories from '@/constants/categories';
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  data() {
+    return {
+      filterText: '',
+      categories: categories,
+    }
+  },
+  methods: {
+    filterNode(value, data) {
+      if (!value) return true;
+      return data.label.indexOf(value) !== -1;
+    }
+  },
+  watch: {
+    filterText(val) {
+      this.$refs.tree.filter(val);
+    }
+  },
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  font-family: sans;
+  /* background: #fafafa; */
 }
 </style>
