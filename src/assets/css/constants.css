@@ -266,6 +266,7 @@ http: //necolas.github.io/normalize.css/
   --primary: #ff6800;
   --primary-gradient: linear-gradient(to top, #ff6800 0%, #fa9800 100%);
   --primary-light: #ffbe31;
+  --primary-lightest: #ffbe3159;
   --tertiary: #a09da6;
   --primary-border: #fc8400;
   --background: #eef2f7;
