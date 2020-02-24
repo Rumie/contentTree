@@ -56,7 +56,7 @@ export default {
 
 <style lang="scss">
 body {
-  font-family: sans;
+  font-family: 'system-ui';
 }
 
 .navigation {
@@ -70,7 +70,7 @@ body {
 .navigation__title {
   margin-top: var(--spacing-2);
   font-weight: var(--bold);
-  font-size: var(--xl1);
+  font-size: var(--xl3);
   letter-spacing: var(--tracking-tight);
   margin-left: auto;
   margin-right: auto;
@@ -89,5 +89,9 @@ body {
 .el-tree-node.is-current > .el-tree-node__content {
   background: var(--primary-lightest) !important;
   background-color: var(--primary-lightest) !important;
+}
+
+.el-tree-node__label {
+  font-size: 20px;
 }
 </style>
