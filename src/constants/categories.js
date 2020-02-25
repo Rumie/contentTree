@@ -13,7 +13,7 @@ export default [
             type: "theme",
             id: "Flexibility",
             label: "Flexibility",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Developing strategies for becoming receptive to change",
@@ -25,7 +25,7 @@ export default [
             type: "theme",
             id: "Adaptability",
             label: "Adaptability",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "How to foster adaptability",
@@ -37,7 +37,7 @@ export default [
             type: "theme",
             id: "Perseverance",
             label: "Perseverance",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Setting effective goals",
@@ -56,7 +56,7 @@ export default [
             type: "theme",
             id: "Relationship Building",
             label: "Relationship Building",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "How to recognize emotion in others",
@@ -68,7 +68,7 @@ export default [
             type: "theme",
             id: "Leadership Communication",
             label: "Leadership Communication",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "7 skills for active listening",
@@ -80,7 +80,7 @@ export default [
             type: "theme",
             id: "Decision Making",
             label: "Decision Making",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "How to define the problem, challenge or opportunity",
@@ -99,7 +99,7 @@ export default [
             type: "theme",
             id: "Saving",
             label: "Saving",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "How to make a budget",
@@ -136,7 +136,7 @@ export default [
             type: "theme",
             id: "Borrowing",
             label: "Borrowing",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Understanding loans and lines of credit",
@@ -158,7 +158,7 @@ export default [
             type: "theme",
             id: "Financial Investing",
             label: "Financial Investing",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id:
@@ -179,7 +179,7 @@ export default [
             type: "theme",
             id: "Reasoning",
             label: "Reasoning",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Identifying critical thinking skills",
@@ -198,7 +198,7 @@ export default [
             type: "theme",
             id: "Time Management",
             label: "Time Management",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "How to prioritize goals",
@@ -217,7 +217,7 @@ export default [
             type: "theme",
             id: "Networking",
             label: "Networking",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Three strategies for building relationships",
@@ -229,7 +229,7 @@ export default [
             type: "theme",
             id: "Resume Writing",
             label: "Resume Writing",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Choosing the right resume format",
@@ -241,7 +241,7 @@ export default [
             type: "theme",
             id: "Interviewing",
             label: "Interviewing",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id:
@@ -262,7 +262,7 @@ export default [
             type: "theme",
             id: "Small Business",
             label: "Small Business",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Demonstrating business acumen",
@@ -288,7 +288,7 @@ export default [
             type: "theme",
             id: "Problem Solving",
             label: "Problem Solving",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "4 steps to effective problem solving",
@@ -307,7 +307,7 @@ export default [
             type: "theme",
             id: "Teamwork",
             label: "Teamwork",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "The 5 functions of an effective team",
@@ -326,7 +326,7 @@ export default [
             type: "theme",
             id: "Written Communication",
             label: "Written Communication",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Written communication for the workplace",
@@ -338,7 +338,7 @@ export default [
             type: "theme",
             id: "Face to Face Communication",
             label: "Face to Face Communication",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "In person communication tips",
@@ -357,7 +357,7 @@ export default [
             type: "theme",
             id: "Brainstorming",
             label: "Brainstorming",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Effective brainstorming techniques",
@@ -383,7 +383,7 @@ export default [
             type: "theme",
             id: "Information and Media Literacy",
             label: "Information and Media Literacy",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Developing search skills",
@@ -409,7 +409,7 @@ export default [
             type: "theme",
             id: "Dangers of the Internet",
             label: "Dangers of the Internet",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "How to avoid phishing",
@@ -428,7 +428,7 @@ export default [
             type: "theme",
             id: "Digital Identity",
             label: "Digital Identity",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Why is digital identity important",
@@ -440,7 +440,7 @@ export default [
             type: "theme",
             id: "Intellectual Property",
             label: "Intellectual Property",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Understanding trademarks",
@@ -452,7 +452,7 @@ export default [
             type: "theme",
             id: "Digital Privacy and Security",
             label: "Digital Privacy and Security",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id:
@@ -473,7 +473,7 @@ export default [
             type: "theme",
             id: "Digital tools",
             label: "Digital tools",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Getting started with Figma",
@@ -485,7 +485,7 @@ export default [
             type: "theme",
             id: "Prototypes",
             label: "Prototypes",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "The three phases of prototyping",
@@ -497,7 +497,7 @@ export default [
             type: "theme",
             id: "Open Ended Problems",
             label: "Open Ended Problems",
-            children: []
+            xchildren: []
           }
         ]
       }
@@ -517,31 +517,31 @@ export default [
             type: "theme",
             id: "Bullying",
             label: "Bullying",
-            children: []
+            xchildren: []
           },
           {
             type: "theme",
             id: "Yoga",
             label: "Yoga",
-            children: []
+            xchildren: []
           },
           {
             type: "theme",
             id: "Meditation",
             label: "Meditation",
-            children: []
+            xchildren: []
           },
           {
             type: "theme",
             id: "Trauma",
             label: "Trauma",
-            children: []
+            xchildren: []
           },
           {
             type: "theme",
             id: "Stress Management",
             label: "Stress Management",
-            children: []
+            xchildren: []
           }
         ]
       },
@@ -554,13 +554,13 @@ export default [
             type: "theme",
             id: "Drinking Water",
             label: "Drinking Water",
-            children: []
+            xchildren: []
           },
           {
             type: "theme",
             id: "Hygiene",
             label: "Hygiene",
-            children: []
+            xchildren: []
           }
         ]
       },
@@ -573,13 +573,13 @@ export default [
             type: "theme",
             id: "General Fitness",
             label: "General Fitness",
-            children: []
+            xchildren: []
           },
           {
             type: "theme",
             id: "Intellectual Property",
             label: "Intellectual Property",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Understanding trademarks",
@@ -591,7 +591,7 @@ export default [
             type: "theme",
             id: "Digital Privacy and Security",
             label: "Digital Privacy and Security",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id:
@@ -612,7 +612,7 @@ export default [
             type: "theme",
             id: "Healthy Eating",
             label: "Healthy Eating",
-            children: []
+            xchildren: []
           }
         ]
       },
@@ -625,13 +625,13 @@ export default [
             type: "theme",
             id: "Cancers",
             label: "Cancers",
-            children: []
+            xchildren: []
           },
           {
             type: "theme",
             id: "Diabetes",
             label: "Diabetes",
-            children: []
+            xchildren: []
           }
         ]
       }
@@ -651,19 +651,19 @@ export default [
             type: "theme",
             id: "Speaking and Listening",
             label: "Speaking and Listening",
-            children: []
+            xchildren: []
           },
           {
             type: "theme",
             id: "Vocabularily",
             label: "Vocabularily",
-            children: []
+            xchildren: []
           },
           {
             type: "theme",
             id: "Writing",
             label: "Writing",
-            children: []
+            xchildren: []
           }
         ]
       },
@@ -682,7 +682,7 @@ export default [
             type: "theme",
             id: "Going to the Doctor",
             label: "Going to the Doctor",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Making an Appointment",
@@ -706,19 +706,19 @@ export default [
             type: "theme",
             id: "Phonemic Awareness",
             label: "Phonemic Awareness",
-            children: []
+            xchildren: []
           },
           {
             type: "theme",
             id: "Alphabetic Principle",
             label: "Alphabetic Principle",
-            children: []
+            xchildren: []
           },
           {
             type: "theme",
             id: "Comprehension",
             label: "Comprehension",
-            children: []
+            xchildren: []
           }
         ]
       },
@@ -731,7 +731,7 @@ export default [
             type: "theme",
             id: "Interpreting Information",
             label: "Interpreting Information",
-            children: []
+            xchildren: []
           }
         ]
       }
@@ -879,7 +879,7 @@ export default [
             type: "theme",
             id: "New Staff Onboarding",
             label: "New Staff Onboarding",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Roles and Responsibilities at Rumie",
@@ -901,7 +901,7 @@ export default [
             type: "theme",
             id: "Rumie Messaging",
             label: "Rumie Messaging",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Understanding the Rumie Brand Guidelines",
@@ -920,7 +920,7 @@ export default [
             type: "theme",
             id: "Describing Rumie Products",
             label: "Describing Rumie Products",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "The Rumie Byte Builder",
@@ -937,7 +937,7 @@ export default [
             type: "theme",
             id: "The Rumie Impact",
             label: "The Rumie Impact",
-            children: [
+            xchildren: [
               {
                 type: "bytes",
                 id: "Our work in Afghanistan",
