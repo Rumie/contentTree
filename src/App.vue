@@ -28,7 +28,7 @@
       empty-text="No data to show"
     >
       <div class="custom-tree-node" slot-scope="{ node, data }">
-        <div>{{ node.label }}</div>
+        <div class="custom-tree-node__label">{{ node.label }}</div>
         <div class="custom-tree-node__type">{{ data['type'] }}</div>
       </div>
     </el-tree>
@@ -115,15 +115,15 @@ body {
   font-size: 20px;
 }
 
-.el-tree-node .el-tree-node__content .el-tree-node__label {
+.el-tree-node .el-tree-node__content .custom-tree-node__label {
   font-size: var(--xl4) !important;
 }
 
-.el-tree-node .el-tree-node .el-tree-node__content .el-tree-node__label {
+.el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
   font-size: var(--xl2) !important;
 }
 
-.el-tree-node .el-tree-node .el-tree-node .el-tree-node__content .el-tree-node__label {
+.el-tree-node .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
   font-size: var(--lg) !important;
 }
 
