@@ -94,4 +94,17 @@ body {
 .el-tree-node__label {
   font-size: 20px;
 }
+
+.el-tree-node .el-tree-node__content .el-tree-node__label {
+  font-size: var(--xl3) !important;
+}
+
+.el-tree-node .el-tree-node .el-tree-node__content .el-tree-node__label {
+  font-size: var(--xl) !important;
+}
+
+.el-tree-node .el-tree-node .el-tree-node .el-tree-node__content .el-tree-node__label {
+  font-size: var(--base) !important;
+}
+
 </style>
