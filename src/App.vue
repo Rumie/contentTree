@@ -18,7 +18,7 @@
     <!-- tree explorer -->
     <!-- TODO: migrate to it's own component, ready for export and print -->
     <el-tree
-      default-expand-all
+      :default-expand-all="false"
       accordion
       highlight-current
       :show-checkbox="false"
@@ -26,7 +26,12 @@
       :data="categories"
       :filter-node-method="filterNode"
       empty-text="No data to show"
-    />
+    >
+      <div class="custom-tree-node" slot-scope="{ node, data }">
+        <div>{{ node.label }}</div>
+        <div class="custom-tree-node__type">{{ data['type'] }}</div>
+      </div>
+    </el-tree>
   </div>
 </template>
 
@@ -77,6 +82,17 @@ body {
 }
 
 /* tree style */
+.custom-tree-node {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.custom-tree-node__type {
+  margin-left: auto;
+  font-size: var(--xs) !important;
+}
+
 .el-tree-node__content {
   padding: 5px;
 }
@@ -91,20 +107,24 @@ body {
   background-color: var(--primary-lightest) !important;
 }
 
+.el-tree-node__content {
+  padding: 20px;
+}
+
 .el-tree-node__label {
   font-size: 20px;
 }
 
 .el-tree-node .el-tree-node__content .el-tree-node__label {
-  font-size: var(--xl3) !important;
+  font-size: var(--xl4) !important;
 }
 
 .el-tree-node .el-tree-node .el-tree-node__content .el-tree-node__label {
-  font-size: var(--xl) !important;
+  font-size: var(--xl2) !important;
 }
 
 .el-tree-node .el-tree-node .el-tree-node .el-tree-node__content .el-tree-node__label {
-  font-size: var(--base) !important;
+  font-size: var(--lg) !important;
 }
 
 </style>
