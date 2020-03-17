@@ -1,7 +1,7 @@
-import ContentTree from './src/App';
+import App from './App.vue';
 
 export default {
 	install: function (Vue) {
-		Vue.component('content-tree', ContentTree);
+		Vue.component('content-tree', App);
 	}
 }
