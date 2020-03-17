@@ -1,4 +1,4 @@
-import Sample from './sample.vue';
+import Sample from '../sample.vue';
 
 export default {
 	install: function (Vue) {
