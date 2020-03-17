@@ -1,4 +1,4 @@
-import Sample from '../sample.vue';
+import Sample from './sample';
 
 export {
 	Sample
