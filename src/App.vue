@@ -7,9 +7,6 @@
         Rumie Content Categories
       </div>
     </nav>
-
-
-
     <!-- search -->
     <div style="margin: 10px">
       <el-input placeholder="Filter keyword" v-model="filterText" style="margin-bottom: 20px;"></el-input>
@@ -28,8 +25,17 @@
       empty-text="No data to show"
     >
       <div class="custom-tree-node" slot-scope="{ node, data }">
+        <div class="custom-tree-node__icon">
+          <i class="fa" :class="iconClasses(data['type'])"></i>
+        </div>
         <div class="custom-tree-node__label">{{ node.label }}</div>
-        <div class="custom-tree-node__type">{{ data['type'] }}</div>
+        <div v-if="data['type'] === 'topic'" class="slider-options-container" >
+          <content-tree-slider v-bind="options" :contained="true" class="settings-options" v-model="settingOption" height="1px" width="400px" :data="settingOptions"/>
+          <i class="far fa-times reset-slider-value" @click="settingOption === ''"></i>
+        </div>
+        <span class="custom-tree-node__type">
+          {{ data['type'] }}<i class="fas fa-ellipsis-v elipsis-styling"></i>
+        </span>
       </div>
     </el-tree>
   </div>
@@ -37,18 +43,52 @@
 
 <script>
 import categories from '@/constants/categories';
+const SETING_OPTIONS = {
+  NONE: "None",
+  LESS: "Less",
+  NORMAL: "Normal",
+  MORE: "More",
+  FEATURED: "Featured"
+}
+
 export default {
   name: 'App',
   data() {
     return {
       filterText: '',
       categories: categories,
+      mode: "",
+      settingOption: "",
+      settingOptions: Object.values(SETING_OPTIONS)
+    }
+  },
+  computed: {
+    options() {
+      return {
+      marks: val => ({
+          labelStyle: this.settingOption === val ? { color: 'black'} : null
+        }),
+        dotOptions: [{
+          style: this.settingOption === "" || null ? {
+            "backgroundColor": "#ffffff",
+            "border": "1px solid #ffffff",
+            "boxShadow": "0.5px 0.5px 2px 1px #ffffff"
+          } : null,
+        }]
+      }
     }
   },
   methods: {
     filterNode(value, data) {
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
+    },
+    iconClasses (value) {
+      return {
+        'fa-dot-circle': value === "category",
+        'fa-star': value === "topic",
+        'fa-angle-up': value === "theme"
+      }
     }
   },
   watch: {
@@ -85,7 +125,12 @@ body {
 .custom-tree-node {
   display: flex;
   flex-direction: row;
+  align-items: center;
   width: 100%;
+}
+
+.custom-tree-node__icon {
+  margin-right: 10px;
 }
 
 .custom-tree-node__type {
@@ -107,24 +152,158 @@ body {
   background-color: var(--primary-lightest) !important;
 }
 
+.el-tree-node__content>.el-tree-node__expand-icon {
+  width: 20px;
+}
+
 .el-tree-node__content {
   padding: 20px;
+  margin-bottom: var(--spacing-1);
 }
 
 .el-tree-node__label {
   font-size: 20px;
 }
 
+.custom-tree-node__label {
+  display: block;
+  width: 300px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .el-tree-node .el-tree-node__content .custom-tree-node__label {
-  font-size: var(--xl4) !important;
+  font-size: var(--xl) !important;
 }
 
 .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
-  font-size: var(--xl2) !important;
-}
-
-.el-tree-node .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
   font-size: var(--lg) !important;
 }
 
+.el-tree-node .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
+  font-size: var(--base) !important;
+}
+
+.el-tree-node {
+  margin-bottom: var(--spacing-1);
+}
+
+.el-icon-caret-right:before {
+  content: "\002B" !important;
+  font-size: 30px;
+}
+
+.el-tree-node__expand-icon.expanded {
+  transform: none !important;
+  -webkit-transform: none !important;
+  position: relative;
+  bottom: 4px;
+}
+
+.el-tree-node__expand-icon.expanded:before {
+  content: "\002D" !important;
+  font-size: 30px;
+}
+
+.el-tree-node__content > .el-tree-node__expand-icon {
+  position: relative;
+  bottom: 2px;
+}
+
+.custom-tree-node__type {
+  margin-left: auto;
+  background-color: var(--grey-lighter);
+  padding: 8px 15px;
+  margin-bottom: var(--spacing-4);
+  margin-top: var(--spacing-4);
+  font-size: var(--sm) !important;
+  color: black;
+  font-weight: 600;
+  align-items: flex-end;
+  display: flex;
+}
+
+.elipsis-styling {
+  color: var(--grey);
+  margin-left: 5px;
+}
+
+.fa-dot-circle {
+  color: var(--purple-light);
+  font-size: var(--spacing-4);
+}
+
+.fa-star {
+  color: var(--primary-light);
+  font-size: var(--spacing-4);
+}
+
+.fa-angle-up {
+  color: var(--green-light);
+  font-size: var(--spacing-6);
+}
+
+/*Vue Slider*/
+
+.slider-options-container {
+  display: flex;
+  align-items: center;
+}
+
+.reset-slider-value {
+  margin-left: 80px;
+  color: var(--tertiary);
+}
+
+.reset-slider-value:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.settings-options {
+  margin-left: auto;
+  margin-top: 25px;
+}
+
+.vue-slider-process {
+  background-color: var(--primary) !important;
+}
+
+.vue-slider-dot {
+  width: 11px !important;
+  height: 11px !important;
+}
+
+.vue-slider-rail {
+  background-color: var(--grey-lighter) !important;
+}
+
+.vue-slider-dot-handle {
+  background-color: var(--white) !important;
+  border: 2px solid var(--primary);
+}
+
+.vue-slider-mark-label {
+  color: var(--tertiary);
+  font-weight: 700;
+}
+
+.vue-slider-mark {
+  height: 4px !important;
+  width: 4px !important;
+}
+
+.vue-slider-mark-step-active {
+  background-color: var(--primary) !important;
+}
+
+.vue-slider-mark:first-child .vue-slider-mark-step, .vue-slider-mark:last-child .vue-slider-mark-step {
+  display: block !important;
+}
+
+.vue-slider-ltr .vue-slider-mark-label, .vue-slider-rtl .vue-slider-mark-label {
+  margin-top: -25px !important;
+  top: 0;
+}
 </style>
