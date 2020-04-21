@@ -30,7 +30,7 @@
         </div>
         <div class="custom-tree-node__label">{{ node.label }}</div>
         <div v-if="data['type'] === 'topic'" class="slider-options-container" >
-          <content-tree-slider v-bind="options" :contained="true" class="settings-options" v-model="settingOption" height="1px" width="400px" :data="settingOptions"/>
+          <content-tree-slider  :contained="true" class="settings-options" v-model="settingOption" height="1px" width="400px" :data="settingOptions"/>
           <i class="far fa-times reset-slider-value" @click="settingOption === ''"></i>
         </div>
         <span class="custom-tree-node__type">
@@ -63,20 +63,20 @@ export default {
     }
   },
   computed: {
-    options() {
-      return {
-      marks: val => ({
-          labelStyle: this.settingOption === val ? { color: 'black'} : null
-        }),
-        dotOptions: [{
-          style: this.settingOption === "" || null ? {
-            "backgroundColor": "#ffffff",
-            "border": "1px solid #ffffff",
-            "boxShadow": "0.5px 0.5px 2px 1px #ffffff"
-          } : null,
-        }]
-      }
-    }
+    // options() {
+    //   return {
+    //   marks: val => ({
+    //       labelStyle: this.settingOption === val ? { color: 'black'} : null
+    //     }),
+    //     dotOptions: [{
+    //       style: this.settingOption === "" || null ? {
+    //         "backgroundColor": "#ffffff",
+    //         "border": "1px solid #ffffff",
+    //         "boxShadow": "0.5px 0.5px 2px 1px #ffffff"
+    //       } : null,
+    //     }]
+    //   }
+    // }
   },
   methods: {
     filterNode(value, data) {
