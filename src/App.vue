@@ -30,7 +30,7 @@
         </div>
         <div class="custom-tree-node__label">{{ node.label }}</div>
         <div v-if="data['type'] === 'topic'" class="slider-options-container" >
-          <content-tree-slider  :contained="true" class="settings-options" v-model="settingOption" height="1px" width="400px" :data="settingOptions"/>
+          <content-tree-slider v-bind="options" :contained="true" class="settings-options" v-model="settingOption" height="1px" width="400px" :data="settingOptions"/>
           <i class="far fa-times reset-slider-value" @click="settingOption === ''"></i>
         </div>
         <span class="custom-tree-node__type">
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import categories from './constants/categories';
+import categories from '@/constants/categories';
 const SETING_OPTIONS = {
   NONE: "None",
   LESS: "Less",
@@ -63,20 +63,20 @@ export default {
     }
   },
   computed: {
-    // options() {
-    //   return {
-    //   marks: val => ({
-    //       labelStyle: this.settingOption === val ? { color: 'black'} : null
-    //     }),
-    //     dotOptions: [{
-    //       style: this.settingOption === "" || null ? {
-    //         "backgroundColor": "#ffffff",
-    //         "border": "1px solid #ffffff",
-    //         "boxShadow": "0.5px 0.5px 2px 1px #ffffff"
-    //       } : null,
-    //     }]
-    //   }
-    // }
+    options() {
+      return {
+      marks: val => ({
+          labelStyle: this.settingOption === val ? { color: 'black'} : null
+        }),
+        dotOptions: [{
+          style: this.settingOption === "" || null ? {
+            "backgroundColor": "#ffffff",
+            "border": "1px solid #ffffff",
+            "boxShadow": "0.5px 0.5px 2px 1px #ffffff"
+          } : null,
+        }]
+      }
+    }
   },
   methods: {
     filterNode(value, data) {
@@ -136,6 +136,91 @@ body {
 .custom-tree-node__type {
   margin-left: auto;
   font-size: var(--xs) !important;
+}
+
+/* element ui classes */
+.el-input {
+  position: relative;
+  font-size: 14px;
+  display: inline-block;
+  width: 100%;
+}
+
+.el-input__inner {
+  -webkit-appearance: none;
+  background-color: #FFF;
+  background-image: none;
+  border-radius: 4px;
+  border: 1px solid #DCDFE6;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #606266;
+  display: inline-block;
+  font-size: inherit;
+  height: 40px;
+  line-height: 40px;
+  outline: 0;
+  padding: 0 15px;
+  -webkit-transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+  transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+  width: 100%;
+}
+
+.el-tree {
+  position: relative;
+  cursor: default;
+  background: #FFF;
+  color: #606266;
+}
+
+.el-tree-node {
+  white-space: nowrap;
+  outline: 0;
+}
+
+.custom-tree-node {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+}
+
+.el-tree-node__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 26px;
+  cursor: pointer;
+}
+
+.el-tree-node__expand-icon {
+  cursor: pointer;
+  color: #C0C4CC;
+  font-size: 12px;
+  -webkit-transform: rotate(0);
+  transform: rotate(0);
+  -webkit-transition: -webkit-transform .3s ease-in-out;
+  transition: -webkit-transform .3s ease-in-out;
+  transition: transform .3s ease-in-out;
+  transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
+  transition: transform .3s ease-in-out,-webkit-transform .3s ease-in-out;
+}
+
+.el-tree-node__content>.el-tree-node__expand-icon {
+  padding: 6px;
+}
+
+.el-tree-node__expand-icon.is-leaf {
+  color: transparent;
+  cursor: default;
 }
 
 .el-tree-node__content {
