@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div style="margin: 10px">
-      <el-input placeholder="Filter keyword" v-model="filterText" style="margin-bottom: 20px;"></el-input>
+      <el-input placeholder="Filter keyword" v-model="filterText" style="margin-top: 20px;"></el-input>
     </div>
 
     <!-- tree explorer -->
@@ -12,7 +12,8 @@
       highlight-current
       :show-checkbox="false"
       ref="tree"
-      :data="categories"
+      :props="defaultProps"
+      :data="modifiedCategories"
       :filter-node-method="filterNode"
       empty-text="No data to show"
     >
@@ -21,8 +22,8 @@
           <i class="fa" :class="iconClasses(data['type'])"></i>
         </div>
         <div class="custom-tree-node__label">{{ node.label }}</div>
-        <div v-if="data['type'] === 'topic'" class="slider-options-container" >
-          <content-tree-slider v-bind="options" :contained="true" class="settings-options" v-model="settingOption" height="1px" width="400px" :data="settingOptions"/>
+        <div v-if="data['type'] === 'topics'" class="slider-options-container" >
+          <content-tree-slider v-bind="options" :contained="true" class="settings-options" v-model="data.priority" height="1px" width="400px" :data="settingOptions"/>
           <i class="far fa-times reset-slider-value" @click="settingOption === ''"></i>
         </div>
         <span class="custom-tree-node__type">
@@ -34,24 +35,28 @@
 </template>
 
 <script>
-import categories from './constants/categories';
 const SETING_OPTIONS = {
-  NONE: "None",
-  LESS: "Less",
-  NORMAL: "Normal",
-  MORE: "More",
-  FEATURED: "Featured"
+  NONE: "NONE",
+  LESS: "LESS",
+  NORMAL: "NORMAL",
+  MORE: "MORE",
+  FEATURED: "FEATURED"
 }
 
 export default {
   name: 'App',
+  props: {
+    categories: Array
+  },
   data() {
     return {
       filterText: '',
-      categories: categories,
       mode: "",
       settingOption: "",
-      settingOptions: Object.values(SETING_OPTIONS)
+      settingOptions: Object.values(SETING_OPTIONS),
+      defaultProps: {
+        label: "name"
+      }
     }
   },
   computed: {
@@ -68,18 +73,30 @@ export default {
           } : null,
         }]
       }
+    },
+    modifiedCategories() {
+      let category = this.categories.map(value => {
+        value.children = value.topics.map(themes => {
+          themes.children = themes.themes.map(val =>  {
+            return { ...val, type: "themes"}
+          })
+          return {...themes, type: "topics"}
+        })
+        return {...value, type: "category"}
+      })
+      return category;
     }
   },
   methods: {
     filterNode(value, data) {
       if (!value) return true;
-      return data.label.indexOf(value) !== -1;
+      return data.name.indexOf(value) !== -1;
     },
     iconClasses (value) {
       return {
         'fa-dot-circle': value === "category",
-        'fa-star': value === "topic",
-        'fa-angle-up': value === "theme"
+        'fa-star': value === "topics",
+        'fa-angle-up': value === "themes"
       }
     }
   },
@@ -250,16 +267,21 @@ body {
   white-space: nowrap;
 }
 
+.el-tree__empty-block {
+  text-align: center;
+  padding: var(--spacing-4);
+}
+
 .el-tree-node .el-tree-node__content .custom-tree-node__label {
-  font-size: var(--xl) !important;
+  font-size: var(--sm) !important;
 }
 
 .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
-  font-size: var(--lg) !important;
+  font-size: var(--sm) !important;
 }
 
 .el-tree-node .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
-  font-size: var(--base) !important;
+  font-size: var(--xs) !important;
 }
 
 .el-tree-node {
@@ -294,7 +316,6 @@ body {
   padding: 8px 15px;
   margin-bottom: var(--spacing-4);
   margin-top: var(--spacing-4);
-  font-size: var(--sm) !important;
   color: black;
   font-weight: 600;
   align-items: flex-end;
