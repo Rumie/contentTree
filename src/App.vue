@@ -1,13 +1,5 @@
 <template>
   <div id="app">
-    <!-- nav header  -->
-    <nav class="navigation">
-      <img src="@/assets/images/logo.svg" alt="Rumie" />
-      <div class="navigation__title">
-        Rumie Content Categories
-      </div>
-    </nav>
-    <!-- search -->
     <div style="margin: 10px">
       <el-input placeholder="Filter keyword" v-model="filterText" style="margin-bottom: 20px;"></el-input>
     </div>
@@ -101,7 +93,7 @@ export default {
 
 <style lang="scss">
 body {
-  font-family: 'system-ui';
+  font-family: var(--calibre);
 }
 
 .navigation {
