@@ -1,11 +1,5 @@
 <template>
   <div id="app">
-    <div style="margin: 10px">
-      <el-input placeholder="Filter keyword" v-model="filterText" style="margin-top: 20px;"></el-input>
-    </div>
-
-    <!-- tree explorer -->
-    <!-- TODO: migrate to it's own component, ready for export and print -->
     <el-tree
       :default-expand-all="false"
       accordion
@@ -19,11 +13,11 @@
     >
       <div class="custom-tree-node" slot-scope="{ node, data }">
         <div class="custom-tree-node__icon">
-          <i class="fa" :class="iconClasses(data['type'])"></i>
+          <i class="fa" :class="iconClasses(data['priority'])"></i>
         </div>
         <div class="custom-tree-node__label">{{ node.label }}</div>
-        <div v-if="data['type'] === 'topics'" class="slider-options-container" >
-          <content-tree-slider v-bind="options" :contained="true" class="settings-options" v-model="data.priority" height="1px" width="400px" :data="settingOptions"/>
+        <div  class="slider-options-container" >
+          <content-tree-slider v-bind="options" :marks="true" @change="$emit('priority', (data))" :contained="true" class="settings-options" v-model="data.priority" height="1px" width="400px" :data="settingOptions"/>
           <i class="far fa-times reset-slider-value" @click="settingOption === ''"></i>
         </div>
         <span class="custom-tree-node__type">
@@ -78,9 +72,9 @@ export default {
       let category = this.categories.map(value => {
         value.children = value.topics.map(themes => {
           themes.children = themes.themes.map(val =>  {
-            return { ...val, type: "themes"}
+            return { ...val, type: "theme"}
           })
-          return {...themes, type: "topics"}
+          return {...themes, type: "topic"}
         })
         return {...value, type: "category"}
       })
@@ -94,9 +88,11 @@ export default {
     },
     iconClasses (value) {
       return {
-        'fa-dot-circle': value === "category",
-        'fa-star': value === "topics",
-        'fa-angle-up': value === "themes"
+        'fa-dot-circle': value === "NORMAL",
+        'fa-star': value === "FEATURED",
+        'fa-angle-up': value === "MORE",
+        'fa-angle-down': value === "LESS",
+        'fa-ban': value === "NONE",
       }
     }
   },
@@ -252,7 +248,7 @@ body {
 
 .el-tree-node__content {
   padding: 20px;
-  margin-bottom: var(--spacing-1);
+  border-bottom: 2px solid var(--background);
 }
 
 .el-tree-node__label {
@@ -342,6 +338,15 @@ body {
   font-size: var(--spacing-6);
 }
 
+.fa-angle-down {
+  color: var(--green-light);
+  font-size: var(--spacing-6);
+}
+
+.fa-ban {
+  color: var(--red);
+  font-size: var(--spacing-4);
+}
 /*Vue Slider*/
 
 .slider-options-container {
