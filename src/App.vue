@@ -16,11 +16,10 @@
           <i class="fa" :class="iconClasses(data['priority'])"></i>
         </div>
         <div class="custom-tree-node__label">{{ node.label }}</div>
-        <div  class="slider-options-container" @click.stop="$emit('priority', (data))">
+        <div :id="`${data.id}`" class="slider-options-container" @click.stop="$emit('priority', (data))">
           <content-tree-slider v-bind="options(data.priority)" :marks="true" class="settings-options" v-model="data.priority" height="1px" width="400px" :data="settingOptions"/>
-          <i class="far fa-times reset-slider-value" @click="data.priority = 'NONE'"></i>
         </div>
-        <span class="custom-tree-node__type">
+        <span class="custom-tree-node__type" @click.stop="hideShowSlider(data.id)">
           {{ data['type'] }}<i class="fas fa-ellipsis-v elipsis-styling"></i>
         </span>
       </div>
@@ -68,6 +67,14 @@ export default {
     }
   },
   methods: {
+    hideShowSlider(id) {
+      let currentSlider = document.getElementById(id);
+      if(currentSlider.style.display === '') {
+        currentSlider.style.display = "none";
+      } else if(currentSlider.style.display === 'none'){
+        currentSlider.style.display = '';
+      }
+    },
     options(priority) {
       return {
       marks: val => ({
@@ -352,16 +359,6 @@ body {
 .slider-options-container {
   display: flex;
   align-items: center;
-}
-
-.reset-slider-value {
-  margin-left: 80px;
-  color: var(--tertiary);
-}
-
-.reset-slider-value:hover {
-  cursor: pointer;
-  transform: scale(1.1);
 }
 
 .settings-options {
