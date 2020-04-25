@@ -17,7 +17,7 @@
         </div>
         <div class="custom-tree-node__label">{{ node.label }}</div>
         <div  class="slider-options-container" @click.stop="$emit('priority', (data))">
-          <content-tree-slider v-bind="options" :marks="true" :contained="true" class="settings-options" v-model="data.priority" height="1px" width="400px" :data="settingOptions"/>
+          <content-tree-slider v-bind="options(data.priority)" :marks="true" class="settings-options" v-model="data.priority" height="1px" width="400px" :data="settingOptions"/>
           <i class="far fa-times reset-slider-value" @click="data.priority = 'NONE'"></i>
         </div>
         <span class="custom-tree-node__type">
@@ -54,20 +54,6 @@ export default {
     }
   },
   computed: {
-    options() {
-      return {
-      marks: val => ({
-          labelStyle: this.settingOption === val ? { color: 'black'} : null
-        }),
-        dotOptions: [{
-          style: this.settingOption === "" || null ? {
-            "backgroundColor": "#ffffff",
-            "border": "1px solid #ffffff",
-            "boxShadow": "0.5px 0.5px 2px 1px #ffffff"
-          } : null,
-        }]
-      }
-    },
     modifiedCategories() {
       let category = this.categories.map(value => {
         value.children = value.topics.map(themes => {
@@ -82,6 +68,20 @@ export default {
     }
   },
   methods: {
+    options(priority) {
+      return {
+      marks: val => ({
+          labelStyle: priority === val ? { color: 'black'} : null
+        }),
+        dotOptions: [{
+          style: priority === "" || null ? {
+            "backgroundColor": "#ffffff",
+            "border": "1px solid #ffffff",
+            "boxShadow": "0.5px 0.5px 2px 1px #ffffff"
+          } : null,
+        }]
+      }
+    },
     filterNode(value, data) {
       if (!value) return true;
       return data.name.indexOf(value) !== -1;
