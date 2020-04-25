@@ -16,9 +16,9 @@
           <i class="fa" :class="iconClasses(data['priority'])"></i>
         </div>
         <div class="custom-tree-node__label">{{ node.label }}</div>
-        <div  class="slider-options-container" >
-          <content-tree-slider v-bind="options" :marks="true" @change="$emit('priority', (data))" :contained="true" class="settings-options" v-model="data.priority" height="1px" width="400px" :data="settingOptions"/>
-          <i class="far fa-times reset-slider-value" @click="settingOption === ''"></i>
+        <div  class="slider-options-container" @click.stop="$emit('priority', (data))">
+          <content-tree-slider v-bind="options" :marks="true" :contained="true" class="settings-options" v-model="data.priority" height="1px" width="400px" :data="settingOptions"/>
+          <i class="far fa-times reset-slider-value" @click="data.priority = 'NONE'"></i>
         </div>
         <span class="custom-tree-node__type">
           {{ data['type'] }}<i class="fas fa-ellipsis-v elipsis-styling"></i>
@@ -88,7 +88,7 @@ export default {
     },
     iconClasses (value) {
       return {
-        'fa-dot-circle': value === "NORMAL",
+        'fa-check': value === "NORMAL",
         'fa-star': value === "FEATURED",
         'fa-angle-up': value === "MORE",
         'fa-angle-down': value === "LESS",
@@ -323,8 +323,8 @@ body {
   margin-left: 5px;
 }
 
-.fa-dot-circle {
-  color: var(--purple-light);
+.fa-check {
+  color: var(--blue-light);
   font-size: var(--spacing-4);
 }
 
