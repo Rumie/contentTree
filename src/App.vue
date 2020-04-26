@@ -39,7 +39,7 @@ const SETING_OPTIONS = {
 export default {
   name: 'App',
   props: {
-    categories: Array
+    value: Array
   },
   data() {
     return {
@@ -53,17 +53,22 @@ export default {
     }
   },
   computed: {
-    modifiedCategories() {
-      let category = this.categories.map(value => {
-        value.children = value.topics.map(themes => {
-          themes.children = themes.themes.map(val =>  {
-            return { ...val, type: "theme", showSlider: false }
+    modifiedCategories: {
+      get() {
+        let category = this.categories.map(value => {
+          value.children = value.topics.map(themes => {
+            themes.children = themes.themes.map(val =>  {
+              return { ...val, type: "theme", showSlider: false }
+            })
+            return {...themes, type: "topic", showSlider: false }
           })
-          return {...themes, type: "topic", showSlider: false }
+          return {...value, type: "category", showSlider: false }
         })
-        return {...value, type: "category", showSlider: false }
-      })
-      return category;
+        return category;
+      },
+      set(value) {
+        this.$emit('input', value);
+      }
     }
   },
   methods: {
