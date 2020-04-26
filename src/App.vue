@@ -55,7 +55,7 @@ export default {
   computed: {
     modifiedCategories: {
       get() {
-        let category = this.categories.map(value => {
+        let category = this.value.map(value => {
           value.children = value.topics.map(themes => {
             themes.children = themes.themes.map(val =>  {
               return { ...val, type: "theme", showSlider: false }
