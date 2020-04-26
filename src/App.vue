@@ -16,8 +16,8 @@
           <i class="fa" :class="iconClasses(data['priority'])"></i>
         </div>
         <div class="custom-tree-node__label">{{ node.label }}</div>
-        <div v-if="data.showSlider" class="slider-options-container" @click.stop="$emit('priority', (data))">
-          <content-tree-slider :marks="true" class="settings-options" v-model="data.priority" height="1px" width="400px" :data="settingOptions"/>
+        <div v-if="data.showSlider" class="slider-options-container" @click.stop>
+          <content-tree-slider :marks="true" class="settings-options"  @change="v => onPriorityChange(data, v)" :value="data.priority" height="1px" width="400px" :data="settingOptions"/>
         </div>
         <span class="custom-tree-node__type" @click.stop="data.showSlider = !data.showSlider">
           {{ data['type'] }}<i class="fas fa-ellipsis-v elipsis-styling"></i>
@@ -28,6 +28,9 @@
 </template>
 
 <script>
+import set from "lodash/set";
+import get from "lodash/get";
+
 const SETING_OPTIONS = {
   NONE: "NONE",
   LESS: "LESS",
@@ -37,7 +40,7 @@ const SETING_OPTIONS = {
 }
 
 export default {
-  name: 'App',
+  name: 'RumieContentTree',
   props: {
     value: Array
   },
@@ -53,32 +56,25 @@ export default {
     }
   },
   computed: {
-    modifiedCategories: {
-      get() {
-        let category = this.value.map(value => {
-          value.children = value.topics.map(themes => {
-            themes.children = themes.themes.map(val =>  {
-              return { ...val, type: "theme", showSlider: false }
-            })
-            return {...themes, type: "topic", showSlider: false }
+    modifiedCategories() {
+      return this.value.map((category, i) => {
+        category.children = category.topics.map((topic, j) => {
+          topic.children = topic.themes.map((theme, k) =>  {
+            return { ...theme, type: "theme", showSlider: !!theme.showSlider, index: `${i}.topics.${j}.themes.${k}` }
           })
-          return {...value, type: "category", showSlider: false }
+          return {...topic, type: "topic", showSlider: !!topic.showSlider, index: `${i}.topics.${j}` }
         })
-        return category;
-      },
-      set(value) {
-        this.$emit('input', value);
-      }
+        return {...category, type: "category", showSlider: !!category.showSlider, index: `${i}` }
+      })
     }
   },
   methods: {
-    hideShowSlider(id) {
-      let currentSlider = document.getElementById(id);
-      if(currentSlider.style.display === '') {
-        currentSlider.style.display = "none";
-      } else if(currentSlider.style.display === 'none'){
-        currentSlider.style.display = '';
-      }
+    onPriorityChange(data, priority) {
+      const categories = [...this.modifiedCategories];
+      set(categories, `${data.index}.priority`, priority);
+      this.$emit('input', categories);
+      console.log(get(categories, data.index))
+      this.$emit('priority', get(categories, data.index));
     },
     options(priority) {
       return {
