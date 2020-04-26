@@ -16,10 +16,10 @@
           <i class="fa" :class="iconClasses(data['priority'])"></i>
         </div>
         <div class="custom-tree-node__label">{{ node.label }}</div>
-        <div :id="`${data.id}`" class="slider-options-container" @click.stop="$emit('priority', (data))">
-          <content-tree-slider v-bind="options(data.priority)" :marks="true" class="settings-options" v-model="data.priority" height="1px" width="400px" :data="settingOptions"/>
+        <div v-if="data.showSlider" class="slider-options-container" @click.stop="$emit('priority', (data))">
+          <content-tree-slider :marks="true" class="settings-options" v-model="data.priority" height="1px" width="400px" :data="settingOptions"/>
         </div>
-        <span class="custom-tree-node__type" @click.stop="hideShowSlider(data.id)">
+        <span class="custom-tree-node__type" @click.stop="data.showSlider = !data.showSlider">
           {{ data['type'] }}<i class="fas fa-ellipsis-v elipsis-styling"></i>
         </span>
       </div>
@@ -57,11 +57,11 @@ export default {
       let category = this.categories.map(value => {
         value.children = value.topics.map(themes => {
           themes.children = themes.themes.map(val =>  {
-            return { ...val, type: "theme"}
+            return { ...val, type: "theme", showSlider: false }
           })
-          return {...themes, type: "topic"}
+          return {...themes, type: "topic", showSlider: false }
         })
-        return {...value, type: "category"}
+        return {...value, type: "category", showSlider: false }
       })
       return category;
     }
@@ -288,7 +288,7 @@ body {
 }
 
 .el-tree-node {
-  margin-bottom: var(--spacing-1);
+  /* margin-bottom: var(--spacing-1); */
 }
 
 .el-icon-caret-right:before {
