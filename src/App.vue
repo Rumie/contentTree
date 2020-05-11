@@ -277,7 +277,7 @@ body {
 }
 
 .el-tree-node .el-tree-node__content .custom-tree-node__label {
-  font-size: var(--sm) !important;
+  font-size: var(--base) !important;
 }
 
 .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
