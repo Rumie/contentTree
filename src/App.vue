@@ -277,7 +277,7 @@ body {
 }
 
 .el-tree-node .el-tree-node__content .custom-tree-node__label {
-  font-size: var(--base) !important;
+  font-size: var(--md) !important;
 }
 
 .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
@@ -286,10 +286,6 @@ body {
 
 .el-tree-node .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
   font-size: var(--xs) !important;
-}
-
-.el-tree-node {
-  /* margin-bottom: var(--spacing-1); */
 }
 
 .el-icon-caret-right:before {
