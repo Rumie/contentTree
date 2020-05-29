@@ -71,7 +71,9 @@ export default {
   methods: {
     onPriorityChange(data, priority) {
       const categories = [...this.modifiedCategories];
+      const type = data.type;
       set(categories, `${data.index}.priority`, priority);
+      set(categories, `${data.index}.type`, type);
       this.$emit('input', categories);
       console.log(get(categories, data.index))
       this.$emit('priority', get(categories, data.index));
