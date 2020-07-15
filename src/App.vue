@@ -19,7 +19,10 @@
         <div v-if="data.showSlider" class="slider-options-container" @click.stop>
           <content-tree-slider :marks="true" class="settings-options"  @change="v => onPriorityChange(data, v)" :value="data.priority" height="1px" width="400px" :data="settingOptions"/>
         </div>
-        <span class="custom-tree-node__type" @click.stop="data.showSlider = !data.showSlider">
+        <span class="custom-tree-node__type" @click.stop="onPriorityChange(data, 'NORMAL')">
+          Reset
+        </span>
+        <span class="custom-tree-node__type custom-tree-node-type__margin" :class="heighlightButton(data.showSlider)" @click.stop="data.showSlider = !data.showSlider">
           {{ data['type'] }}<i class="fas fa-ellipsis-v elipsis-styling"></i>
         </span>
       </div>
@@ -104,6 +107,11 @@ export default {
         'fa-angle-down': value === "LESS",
         'fa-ban': value === "NONE",
       }
+    },
+    heighlightButton(value) {
+      return {
+        "heighlight__border": value === true
+      }
     }
   },
   watch: {
@@ -153,6 +161,7 @@ body {
   font-size: var(--xs) !important;
 }
 
+
 /* element ui classes */
 .el-input {
   position: relative;
@@ -191,6 +200,7 @@ body {
 .el-tree-node {
   white-space: nowrap;
   outline: 0;
+  position: relative;
 }
 
 .custom-tree-node {
@@ -279,15 +289,15 @@ body {
 }
 
 .el-tree-node .el-tree-node__content .custom-tree-node__label {
-  font-size: var(--md) !important;
+  font-size: 19px !important;
 }
 
 .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
-  font-size: var(--sm) !important;
+  font-size: 15px !important;
 }
 
 .el-tree-node .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
-  font-size: var(--xs) !important;
+  font-size: 12px !important;
 }
 
 .el-icon-caret-right:before {
@@ -322,6 +332,17 @@ body {
   font-weight: 600;
   align-items: flex-end;
   display: flex;
+  width: 50px;
+  justify-content: space-around;
+}
+
+.custom-tree-node-type__margin {
+  margin-left: var(--spacing-4);
+}
+
+.heighlight__border {
+  background: var(--primary-gradient);
+  color: white;
 }
 
 .elipsis-styling {
@@ -358,11 +379,16 @@ body {
 .slider-options-container {
   display: flex;
   align-items: center;
+  position: absolute;
+  z-index: 10;
+  width: 500px;
+  right: 210px;
 }
 
 .settings-options {
-  margin-left: auto;
+  margin-left: 40px;
   margin-top: 25px;
+  padding: 7px 0px !important;
 }
 
 .vue-slider-process {
@@ -404,5 +430,11 @@ body {
 .vue-slider-ltr .vue-slider-mark-label, .vue-slider-rtl .vue-slider-mark-label {
   margin-top: -25px !important;
   top: 0;
+}
+
+@media screen and (max-width: 580px) {
+  .custom-tree-node-type__margin {
+    margin-right: var(--spacing-8);
+  }
 }
 </style>
