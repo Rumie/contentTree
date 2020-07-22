@@ -18,15 +18,18 @@
         <div class="custom-tree-node__label">{{ node.label }}</div>
         <div v-if="data.showSlider" class="slider-options-container" @click.stop>
           <content-tree-slider :marks="true" class="settings-options"  @change="v => onPriorityChange(data, v)" :value="data.priority" height="1px" width="400px" :data="settingOptions"/>
+          <i class="fas fa-chevron-right"></i>
         </div>
-        <span class="custom-tree-node__type" @click.stop="onPriorityChange(data, 'NORMAL')">
-          Reset
+        <span class="custom-tree-node__type" @click.stop="resetCategoryValue(data, 'NORMAL')">
+          <i class="fas fa-undo-alt"></i>
+          <span>reset</span>
         </span>
         <span class="custom-tree-node__type custom-tree-node-type__margin" :class="heighlightButton(data.showSlider)" @click.stop="data.showSlider = !data.showSlider">
-          {{ data['type'] }}<i class="fas fa-ellipsis-v elipsis-styling"></i>
+          <span>{{ data['type'] }}</span><i class="fas fa-ellipsis-v elipsis-styling"></i>
         </span>
       </div>
     </el-tree>
+    <v-dialog />
   </div>
 </template>
 
@@ -72,6 +75,25 @@ export default {
     }
   },
   methods: {
+    resetCategoryValue(data, priority) {
+      this.$modal.show("dialog", {
+        title: "Reset Category Value",
+        text: `Are you sure you want to reset all customization below this section?`,
+        buttons: [
+          {
+            title: "Yes",
+            handler: async () => {
+              this.onPriorityChange(data, priority);
+              this.$modal.hide("dialog");
+            }
+          },
+          {
+            title: "No",
+            handler: () => this.$modal.hide("dialog")
+          }
+        ]
+      });
+    },
     onPriorityChange(data, priority) {
       const categories = [...this.modifiedCategories];
       const type = data.type;
@@ -385,6 +407,10 @@ body {
   right: 210px;
 }
 
+.fas.fa-chevron-right {
+  display: none;
+}
+
 .settings-options {
   margin-left: 40px;
   margin-top: 25px;
@@ -432,9 +458,60 @@ body {
   top: 0;
 }
 
+@media screen and (max-width: 950px) {
+  .slider-options-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    left: 0px;
+    top: 68px;
+    height: 60px;
+    background-color: white;
+    justify-content: space-between;
+    box-shadow: var(--shadow-md);
+  }
+  .fas.fa-chevron-right {
+    display: block;
+    margin-right: 30px;
+    font-size: 20px;
+  }
+}
+
 @media screen and (max-width: 580px) {
   .custom-tree-node-type__margin {
     margin-right: var(--spacing-8);
+  }
+  .fas.fa-undo-alt {
+    margin-right: 5px;
+  }
+  .custom-tree-node__type {
+    width: 20px;
+    padding: 8px;
+  }
+  .custom-tree-node__type span {
+    display: none;
+  }
+  .settings-options {
+    margin-left: 30px;
+  }
+  .vue-slider-rail {
+    width: 80%;
+  }
+  .el-tree-node .el-tree-node__content .custom-tree-node__label {
+    font-size: 17px !important;
+  }
+
+  .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
+    font-size: 14px !important;
+  }
+
+  .el-tree-node .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
+    font-size: 12px !important;
+  }
+  .vue-slider-mark-label {
+    font-size: 12px;
   }
 }
 </style>
