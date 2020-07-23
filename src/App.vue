@@ -18,7 +18,6 @@
         <div class="custom-tree-node__label">{{ node.label }}</div>
         <div v-if="data.showSlider" class="slider-options-container" @click.stop>
           <content-tree-slider :marks="true" class="settings-options"  @change="v => onPriorityChange(data, v)" :value="data.priority" height="1px" width="400px" :data="settingOptions"/>
-          <i class="fas fa-chevron-right"></i>
         </div>
         <span class="custom-tree-node__type" @click.stop="resetCategoryValue(data, 'NORMAL')">
           <i class="fas fa-undo-alt"></i>
@@ -27,6 +26,9 @@
         <span class="custom-tree-node__type custom-tree-node-type__margin" :class="heighlightButton(data.showSlider)" @click.stop="data.showSlider = !data.showSlider">
           <span>{{ data['type'] }}</span><i class="fas fa-ellipsis-v elipsis-styling"></i>
         </span>
+        <div class="category__dropdown--close" :class="visibleCategoryDropdown(data.showSlider)">
+          <div v-for="option in settingOptions" :class="highlightSelectedCategoryValue(data.priority, option)" :key="option" @click="selectCategory(data, option)" class="category__dropdown-value">{{ option }}</div>
+        </div>
       </div>
     </el-tree>
     <v-dialog />
@@ -72,9 +74,23 @@ export default {
         })
         return {...category, type: "category", showSlider: !!category.showSlider, index: `${i}` }
       })
-    }
+    },
   },
   methods: {
+    selectCategory(data, priority){
+      data.showSlider = false;
+      this.onPriorityChange(data, priority)
+    },
+    highlightSelectedCategoryValue(priority, option) {
+      return {
+        "category__dropdown-value--selected": priority === option
+      }
+    },
+    visibleCategoryDropdown(sliderValue) {
+      return {
+        "options-select-container": !!sliderValue
+      };
+    },
     resetCategoryValue(data, priority) {
       this.$modal.show("dialog", {
         title: "Reset Category Value",
@@ -358,6 +374,10 @@ body {
   justify-content: space-around;
 }
 
+.category__dropdown--close {
+  display: none;
+}
+
 .custom-tree-node-type__margin {
   margin-left: var(--spacing-4);
 }
@@ -407,7 +427,7 @@ body {
   right: 210px;
 }
 
-.fas.fa-chevron-right {
+.options-select-container {
   display: none;
 }
 
@@ -460,31 +480,38 @@ body {
 
 @media screen and (max-width: 950px) {
   .slider-options-container {
-    display: flex;
-    align-items: center;
+    display: none
+  }
+  .options-select-container {
+    display: block;
     position: absolute;
     z-index: 10;
     width: 100%;
     left: 0px;
     top: 68px;
-    height: 60px;
     background-color: white;
-    justify-content: space-between;
     box-shadow: var(--shadow-md);
   }
-  .fas.fa-chevron-right {
-    display: block;
-    margin-right: 30px;
-    font-size: 20px;
+  .category__dropdown-value {
+    padding: 10px;
+    padding-left: 25px;
+    z-index: 10;
+    font-size: 15px;
+  }
+  .category__dropdown-value--selected {
+    background: var(--primary-border);
+    color: white;
+  }
+  .category__dropdown-value:hover {
+    cursor: pointer;
+    background: var(--primary-border);
+    color: white;
   }
 }
 
 @media screen and (max-width: 580px) {
   .custom-tree-node-type__margin {
     margin-right: var(--spacing-8);
-  }
-  .fas.fa-undo-alt {
-    margin-right: 5px;
   }
   .custom-tree-node__type {
     width: 20px;
@@ -496,22 +523,8 @@ body {
   .settings-options {
     margin-left: 30px;
   }
-  .vue-slider-rail {
-    width: 80%;
-  }
-  .el-tree-node .el-tree-node__content .custom-tree-node__label {
-    font-size: 17px !important;
-  }
-
-  .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
-    font-size: 14px !important;
-  }
-
-  .el-tree-node .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
-    font-size: 12px !important;
-  }
-  .vue-slider-mark-label {
-    font-size: 12px;
+  .elipsis-styling {
+    margin-left: 0;
   }
 }
 </style>
