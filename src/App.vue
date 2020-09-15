@@ -305,7 +305,7 @@ body {
 }
 
 .el-tree-node__content {
-  padding: 20px;
+  padding: 25px;
   border-bottom: 2px solid var(--background);
 }
 
@@ -327,11 +327,11 @@ body {
 }
 
 .el-tree-node .el-tree-node__content .custom-tree-node__label {
-  font-size: 19px !important;
+  font-size: 22px !important;
 }
 
 .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
-  font-size: 15px !important;
+  font-size: 17px !important;
 }
 
 .el-tree-node .el-tree-node .el-tree-node .el-tree-node__content .custom-tree-node__label {
