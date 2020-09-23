@@ -81,7 +81,7 @@ export default {
   methods: {
     selectCategory(data, priority){
       data.showSlider = false;
-      this.onPriorityChange(data, priority)
+      this.onPriorityChange(data, priority);
     },
     highlightSelectedCategoryValue(priority, option) {
       return {
