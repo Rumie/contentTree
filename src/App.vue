@@ -13,11 +13,11 @@
     >
       <div class="custom-tree-node" slot-scope="{ node, data }">
         <div class="custom-tree-node__icon">
-          <i class="fa" :class="iconClasses(data['priority'])"></i>
+          <i class="fa" :class="iconClasses(priorities[data.id])"></i>
         </div>
         <div class="custom-tree-node__label">{{ node.label }}</div>
         <div v-if="data.showSlider" class="slider-options-container" @click.stop>
-          <content-tree-slider :marks="true" class="settings-options"  @change="v => onPriorityChange(data, v)" :value="data.priority" height="1px" width="400px" :data="settingOptions"/>
+          <content-tree-slider :marks="true" class="settings-options"  @change="v => onPriorityChange(data, v)" :value="priorities[data.id]" height="1px" width="400px" :data="settingOptions"/>
         </div>
         <span class="custom-tree-node__type" @click.stop="resetCategoryValue(data, 'NORMAL')">
           <i class="fas fa-undo-alt"></i>
@@ -27,7 +27,7 @@
           <span>{{ data['type'] }}</span><i class="fas fa-ellipsis-v elipsis-styling"></i>
         </span>
         <div class="category__dropdown--close" :class="visibleCategoryDropdown(data.showSlider)">
-          <div v-for="option in settingOptions" :class="highlightSelectedCategoryValue(data.priority, option)" :key="option" @click="selectCategory(data, option)" class="category__dropdown-value">{{ option }}</div>
+          <div v-for="option in settingOptions" :class="highlightSelectedCategoryValue(priorities[data.id], option)" :key="option" @click="selectCategory(data, option)" class="category__dropdown-value">{{ option }}</div>
         </div>
       </div>
     </el-tree>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import cloneDeep from "lodash/cloneDeep"
 import set from "lodash/set";
 import get from "lodash/get";
 
@@ -50,7 +51,8 @@ const SETING_OPTIONS = {
 export default {
   name: 'RumieContentTree',
   props: {
-    value: Array
+    categories: Array,
+    priorities: Object
   },
   data() {
     return {
@@ -65,7 +67,7 @@ export default {
   },
   computed: {
     modifiedCategories() {
-      return this.value.map((category, i) => {
+      return this.categories.map((category, i) => {
         category.children = category.topics.map((topic, j) => {
           topic.children = topic.themes.map((theme, k) =>  {
             return { ...theme, type: "theme", showSlider: !!theme.showSlider, index: `${i}.topics.${j}.themes.${k}` }
@@ -111,12 +113,10 @@ export default {
       });
     },
     onPriorityChange(data, priority) {
-      const categories = [...this.modifiedCategories];
+      const categories = cloneDeep(this.modifiedCategories);
       const type = data.type;
       set(categories, `${data.index}.priority`, priority);
       set(categories, `${data.index}.type`, type);
-      this.$emit('input', categories);
-      console.log(get(categories, data.index))
       this.$emit('priority', get(categories, data.index));
     },
     options(priority) {
