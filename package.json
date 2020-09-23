@@ -1,6 +1,6 @@
 {
   "name": "content-tree",
-  "version": "0.1.0",
+  "version": "0.2",
   "private": true,
   "main": "src/plugin.js",
   "scripts": {
